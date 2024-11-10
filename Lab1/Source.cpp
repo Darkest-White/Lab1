@@ -18,24 +18,32 @@ public:
 
 	Program()
 	{
-		cout << "Введите пределы интегрирования (a и b): ";
-		cin >> a >> b;
-		cout << "Введите количество разбиений: ";
-		cin >> n;
+		do
+		{
+			cout << "Введите пределы интегрирования (a и b): ";
+			cin >> a >> b;
+		} while (a > b);
+
+		do
+		{
+			cout << "Введите количество разбиений: ";
+			cin >> n;
+		} while (n <= 0);
 	}
 
 	// Функция для численного интегрирования методом трапеций
-	void trapezoidal()
+	double trapezoidal()
 	{
 		double h = (b - a) / n; // Шаг интегрирования
 		double integral = 0.5 * (func(a) + func(b)); // Начальная сумма (крайние точки)
 
-		for (int i = 1; i < n; ++i) {
+		for (int i = 1; i < n; ++i) 
+		{
 			integral += func(a + i * h); // Добавляем значения функции в промежуточных точках
 		}
 
 		integral *= h; // Умножаем сумму на шаг для получения окончательного результата
-		cout << "Результат численного интегрирования: " << integral << endl;
+		return integral;
 	}
 };
 
@@ -44,7 +52,7 @@ int main()
 	system("chcp 1251");
 
 	Program a;
-	a.trapezoidal();
+	cout << "Результат численного интегрирования: " << a.trapezoidal() << endl;
 
 	return 0;
 }
